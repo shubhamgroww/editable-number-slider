@@ -6,7 +6,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import CustomRipple from './components/CustomRipple';
 import TextInputCustom from './components/TextInputCustom';
-import { $TSFixColors } from './types';
+// import { AppStyles, Theme } from '@drogon/themes';
+import { $TSFixColors, $TSSlider  } from './types';
 import styles from './styles';
 import { colors } from './colors';
 
@@ -14,7 +15,6 @@ type EditableNumberSliderProps = {
 	prefix?: string;
 	suffix?: string;
 	containerStyle?: StyleProp<ViewStyle>;
-	disabled?: boolean;
 	maximumValue: number;
 	minimumValue: number;
 	minimumEditValue?: number; // Needed if you need a separate minimum value for EditText & Slider
@@ -24,17 +24,13 @@ type EditableNumberSliderProps = {
 	editable?: boolean;
 	rightElement?: Function;
 	onEditStart?: Function;
-	onSlidingStart?: Function;
 	onEdit?: Function;
 	absoluteMinima?: number; // Needed to protect slider going to a number below minimum in case of a flick
-	formatValue: Function;
-	customThumb?: string;
-	minimumTrackTintColor?: string;
-	maximumTrackTintColor?: string;
-	thumbTintColor?: string;
+	formatValue?: Function;
 	labelColor?: string;
 	labelErrorColor?: string;
 	nativeRipple?: boolean;
+	sliderProps?: $TSSlider;
 };
 
 type EditableNumberSliderState = {
@@ -53,11 +49,15 @@ class EditableNumberSlider extends React.PureComponent<EditableNumberSliderProps
 		};
 	}
 	public static defaultProps = {
-		initialValue: 70,
+		initialValue: 20,
+		minimumValue: 0,
+		maximumValue: 100,
+		sliderStep: 1,
 		nativeRipple: true,
 		prefix: '',
 		suffix: '',
-		// labelColor: '#00000'
+		editable: true,
+		containerStyle: {}
 	};
 
 	static getDefaultValue = (maximumValue: number, minimumValue: number, value?: number) => {
@@ -113,8 +113,7 @@ class EditableNumberSlider extends React.PureComponent<EditableNumberSliderProps
 	};
 
 	handlEditStart = () => {
-		const { disabled = false} = this.props;
-		if(disabled)
+		if(this.props?.sliderProps?.disabled)
 		return;
 		this.setState({ isEditing: true, editStartValue: this.state.value });
 		this.props.onEditStart?.();
@@ -138,37 +137,35 @@ class EditableNumberSlider extends React.PureComponent<EditableNumberSliderProps
 		const correctedValue = Math.max(this.state.value, this.props.absoluteMinima ?? this.props.minimumValue);
 		this.setState({ value: correctedValue });
 		this.props.onValueChange?.(correctedValue);
+
+		//calling custom onSlidingComplete as well
+		this.props.sliderProps?.onSlidingComplete?.();
 	};
 
 	render() {
 		const {
-			containerStyle = {},
+			containerStyle,
 			maximumValue,
 			minimumValue,
-			sliderStep = 1,
+			sliderStep,
 			editable,
 			rightElement,
-			onSlidingStart,
 			formatValue,
-			// customThumb = 'https://img.icons8.com/fluency/2x/thumb-up.png',
-			customThumb,
-			minimumTrackTintColor,
-			maximumTrackTintColor,
-			thumbTintColor,
-			disabled=false,
 			labelColor,
-			prefix="$",
-			suffix="",
-			nativeRipple
+			prefix,
+			suffix,
+			nativeRipple,
+			sliderProps,
 		} = this.props;
+		const { disabled, customThumb, minimumTrackTintColor, maximumTrackTintColor, thumbTintColor, onSlidingStart, } = sliderProps ?? {};
 
 		if (!maximumValue || minimumValue < 0 || minimumValue == null || isNaN(maximumValue) || isNaN(minimumValue)) {
 			return null;
 		}
 		return (
-			<View style={containerStyle}>
+			<View>
 				<CustomRipple onPress={this.handlEditStart} nativeRipple={nativeRipple}>
-					<View style={[styles.numberContainer, styles.container]}>
+					<View style={[styles.numberContainer, styles.container, containerStyle]}>
 						{editable && this.state.isEditing ? (
 							<View
 								style={[
