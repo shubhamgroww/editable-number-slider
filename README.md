@@ -2,9 +2,9 @@
   <h1 align="center"> <code>@groww-tech/editable-number-slider</code> </h1>
 </p>
 <p align="center">
-    <a href="https://www.npmjs.com/package/@react-native-community/slider">
+    <!-- <a href="https://www.npmjs.com/package/@react-native-community/slider">
         <img src="https://img.shields.io/npm/v/@react-native-community/slider.svg" alt="Latest version released on npmjs" />
-    </a>
+    </a> -->
     <a href="https://app.circleci.com/pipelines/github/callstack/react-native-slider?branch=main">
         <img src="https://img.shields.io/circleci/project/github/callstack/react-native-slider/main.svg" alt="Build on CircleCI" />
     </a>
@@ -17,16 +17,25 @@
 </p>
 <p align="center">
   React Native component used to select a single value from a range of values.
-  <br>Currently supported on following platforms:
+  <br>It is bulit on top of @react-native-community/slider with added support of TextInput in which user can edit the slider value.
 </p>
 
-|Screenshot 1 |Screenshot 2| GIF |
-|:-:|:-:|:-:|
-|![Screenshot 1](./examples/Screenshot_1650130877.png) | ![Screenshot 2](./examples/Screenshot_1650130906.png) | ![Windows Screenshot](./examples/recording.gif)|
+<!-- |Screenshot 1 |Screenshot 2| GIF | -->
+<!-- |:-:|:-:|:-:
+|![Screenshot 1](./examples/sst_1.gif) | ![Windows Screenshot](./examples/recording.gif)| ![Screenshot 2](./examples/sst_2.gif) |  -->
+
 
 <!-- https://i.ibb.co/bWMDY7b/Screenshot-1650130877.png -->
 <!-- https://i.ibb.co/KmTZ2vH/Screenshot-1650130906.png -->
 <!-- https://i.ibb.co/5M0CKTp/recording.gif -->
+
+<div>
+  <p align="center">| Screenshot 1 | Screenshot 2 | GIF |</p>
+  <img src='./examples/sst_1.gif' width=32% >
+  <img src='./examples/sst_2.gif' width=32%>
+  <img src='./examples/recording.gif' width=32%>
+<div>
+
 ## Installation & Usage
 
 To install this module `cd` to your project directory and enter the following command:
@@ -70,7 +79,7 @@ import EditableNumberSlider from '@groww-tech/editable-number-slider';
 />
 ```
 
-Check out the [example project](example) for more examples.
+<!-- Check out the [example project](example) for more examples. -->
 
 
 ## Properties
