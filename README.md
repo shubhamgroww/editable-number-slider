@@ -22,8 +22,11 @@
 
 |Screenshot 1 |Screenshot 2| GIF |
 |:-:|:-:|:-:|
-|![Screenshot 1](https://i.ibb.co/bWMDY7b/Screenshot-1650130877.png) | ![Screenshot 2](https://i.ibb.co/KmTZ2vH/Screenshot-1650130906.png) | ![Windows Screenshot](https://i.ibb.co/5M0CKTp/recording.gif)|
+|![Screenshot 1](./examples/Screenshot_1650130877.png) | ![Screenshot 2](./examples/Screenshot_1650130906.png) | ![Windows Screenshot](./examples/recording.gif)|
 
+<!-- https://i.ibb.co/bWMDY7b/Screenshot-1650130877.png -->
+<!-- https://i.ibb.co/KmTZ2vH/Screenshot-1650130906.png -->
+<!-- https://i.ibb.co/5M0CKTp/recording.gif -->
 ## Installation & Usage
 
 To install this module `cd` to your project directory and enter the following command:
