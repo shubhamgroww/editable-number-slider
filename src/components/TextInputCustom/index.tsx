@@ -4,15 +4,64 @@ import {
 	Text,
 	View,
 	Platform,
-	StyleSheet,
 	TouchableOpacity,
+	TextInputProps,
+	StyleProp,
+	TextStyle,
+	ViewStyle,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import PropTypes from 'prop-types';
-import {colors} from '../../colors';
-class TextInputCustom extends Component {
-	constructor(props) {
+import { colors } from '../../colors';
+
+type TextInputCustomProps = TextInputProps & {
+	error?: string;
+	errorStyle?: StyleProp<TextStyle>;
+	isUnderlineRequired?: boolean;
+	containerStyle?: StyleProp<ViewStyle>;
+	centerStyle?: StyleProp<ViewStyle>;
+	fullWidth?: boolean;
+	buttonStyle?: StyleProp<ViewStyle>;
+	prefix?: string;
+	prefixStyle?:StyleProp<TextStyle>;
+	suffix?: string;
+}
+
+
+class TextInputCustom extends Component<TextInputCustomProps> {
+	constructor(props: TextInputCustomProps) {
 		super(props);
+	}
+	static defaultProps = {
+		placeholder: 'Enter Text', // Inherit any this.props passed to it; e.g., multiline, numberOfLines below
+		editable: true,
+		prefix: '',
+		suffix: '',
+		placeholderTextColor: colors.placeholderText,
+		maxLength: 40,
+		style: {},
+		autoFocus: false,
+		keyboardType: 'default', // other values default,numeric,email-address,phone-pad
+		onChangeText: () => {},
+		error: '',
+		errorStyle: { fontSize: 10, color: 'red' },
+		prefixStyle: {},
+		secureTextEntry: false,
+		returnKeyType: 'done', // other options are  done,go,next,search,send
+		onSubmitEditing: () => {},
+		autoCapitalize: 'none',
+		selectTextOnFocus: false,
+		isUnderlineRequired: true,
+		underlineColorAndroid: colors.GRAY,
+		fullWidth: true,
+		containerStyle: {
+			flexDirection: 'row',
+			padding: 0,
+			justifyContent: 'flex-start',
+			borderBottomWidth: 1,
+			borderBottomColor: colors.GREEN_BLUE,
+		},
+		centerStyle: { flexDirection: 'row', padding: 0, justifyContent: 'center' },
+		buttonStyle: { flex: 1, minHeight: 50 }
 	}
 
 	render() {
@@ -65,7 +114,6 @@ class TextInputCustom extends Component {
 								marginTop: Platform.OS === 'ios' ? 10 : 5,
 								fontWeight: 'normal',
 								fontStyle: 'normal',
-								// fontFamily: Fonts.type.gotham_book,
 								letterSpacing: -0.19,
 								textAlign: 'left',
 								color: colors.BLACK,
@@ -136,52 +184,4 @@ class TextInputCustom extends Component {
 		);
 	}
 }
-
 export default TextInputCustom;
-
-TextInputCustom.propTypes = {
-	placeholder: PropTypes.string,
-	editable: PropTypes.bool,
-	placeholderTextColor: PropTypes.string,
-	maxLength: PropTypes.number,
-	keyboardType: PropTypes.string,
-	onChangeText: PropTypes.func,
-	error: PropTypes.string,
-	returnKeyType: PropTypes.string,
-	prefix: PropTypes.string,
-	onSubmitEditing: PropTypes.func,
-};
-
-TextInputCustom.defaultProps = {
-	placeholder: 'Enter Text', // Inherit any this.props passed to it; e.g., multiline, numberOfLines below
-	editable: true,
-	prefix: '',
-	suffix: '',
-	placeholderTextColor: colors.placeholderText,
-	maxLength: 40,
-	style: {},
-	autoFocus: false,
-	keyboardType: 'default', // other values default,numeric,email-address,phone-pad
-	onChangeText: () => {},
-	error: '',
-	errorStyle: { fontSize: 10, color: 'red' },
-	prefixStyle: {},
-	secureTextEntry: false,
-	returnKeyType: 'done', // other options are  done,go,next,search,send
-	onSubmitEditing: () => {},
-	autoCapitalize: 'none',
-	selectTextOnFocus: false,
-	isUnderlineRequired: true,
-	underlineColorAndroid: colors.GRAY,
-	fullWidth: true,
-	containerStyle: {
-		flexDirection: 'row',
-		padding: 0,
-		justifyContent: 'flex-start',
-		borderBottomWidth: 1,
-		borderBottomColor: colors.GREEN_BLUE,
-	},
-	centerStyle: { flexDirection: 'row', padding: 0, justifyContent: 'center' },
-	buttonStyle: { flex: 1, minHeight: 50 },
-};
-const styles = StyleSheet.create({});

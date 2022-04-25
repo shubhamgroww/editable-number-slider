@@ -1,4 +1,3 @@
-
 const LIGHT_COLORS = {
     BRAND_PRIMARY: '#00D09C',
     ICON_GREY: '#7C7E8C',
